@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from datetime import date, datetime
-from typing import Dict, Optional
 
 
 class CostProvider(ABC):
@@ -21,7 +20,7 @@ class CostProvider(ABC):
 
     @classmethod
     @abstractmethod
-    def from_env(cls) -> Optional["CostProvider"]:
+    def from_env(cls) -> CostProvider | None:
         """Build an instance from environment variables.
 
         Return ``None`` when the provider is not configured (e.g. its API key
@@ -29,7 +28,7 @@ class CostProvider(ABC):
         """
 
     @abstractmethod
-    def fetch_daily_costs(self, start: datetime, end: datetime) -> Dict[date, float]:
+    def fetch_daily_costs(self, start: datetime, end: datetime) -> dict[date, float]:
         """Return ``{utc_date: usd_amount}`` for every day in ``[start, end)``.
 
         ``start`` is inclusive, ``end`` is exclusive. Both are UTC datetimes

@@ -11,11 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: astral-sh/setup-uv@v8
+      - uses: astral-sh/setup-uv@v8.2.0
         with:
           python-version: "3.13"
 
-      - run: uv sync
+      - run: uv sync --no-dev
 
       - run: uv run llm-cost-reporter
         env:

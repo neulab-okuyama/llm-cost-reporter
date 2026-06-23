@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Optional
 
 from ..models import CostReport
 
@@ -21,7 +20,7 @@ class Notifier(ABC):
 
     @classmethod
     @abstractmethod
-    def from_env(cls) -> Optional["Notifier"]:
+    def from_env(cls) -> Notifier | None:
         """Build an instance from environment variables, or ``None`` if unset."""
 
     @abstractmethod

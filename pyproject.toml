@@ -7,7 +7,7 @@ name = "llm-cost-reporter"
 version = "0.1.0"
 description = "Fetch actual billed API costs from LLM providers and report them to Slack and other channels."
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.13"
 license = { text = "MIT" }
 dependencies = [
     "requests>=2.28",
@@ -16,6 +16,21 @@ dependencies = [
 
 [project.scripts]
 llm-cost-reporter = "llm_cost_reporter.__main__:main"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15",
+    "mypy>=2.1",
+    "types-requests>=2.32",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "W"]
+
+[tool.mypy]
+strict = true
+python_version = "3.13"
+files = ["llm_cost_reporter"]
 
 [tool.setuptools.packages.find]
 where = ["."]

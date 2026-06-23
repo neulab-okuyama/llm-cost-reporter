@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import os
 from datetime import date, datetime
-from typing import Dict, Optional
+from typing import Any
 
 import requests
 
@@ -32,24 +32,24 @@ class AnthropicProvider(CostProvider):
         self.admin_key = admin_key
 
     @classmethod
-    def from_env(cls) -> Optional["AnthropicProvider"]:
+    def from_env(cls) -> AnthropicProvider | None:
         key = os.getenv("ANTHROPIC_ADMIN_KEY")
         return cls(key) if key else None
 
-    def fetch_daily_costs(self, start: datetime, end: datetime) -> Dict[date, float]:
+    def fetch_daily_costs(self, start: datetime, end: datetime) -> dict[date, float]:
         headers = {
             "x-api-key": self.admin_key,
             "anthropic-version": ANTHROPIC_VERSION,
             "content-type": "application/json",
         }
-        params = {
+        params: dict[str, Any] = {
             "starting_at": start.strftime("%Y-%m-%dT%H:%M:%SZ"),  # inclusive
-            "ending_at": end.strftime("%Y-%m-%dT%H:%M:%SZ"),      # exclusive
+            "ending_at": end.strftime("%Y-%m-%dT%H:%M:%SZ"),  # exclusive
             "bucket_width": "1d",
             "limit": 31,
         }
 
-        daily: Dict[date, float] = {}
+        daily: dict[date, float] = {}
         page = None
         while True:
             if page:
