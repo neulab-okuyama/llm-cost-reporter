@@ -7,7 +7,7 @@ name = "llm-cost-reporter"
 version = "0.1.0"
 description = "Fetch actual billed API costs from LLM providers and report them to Slack and other channels."
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.12"
 license = { text = "MIT" }
 dependencies = [
     "requests>=2.28",
