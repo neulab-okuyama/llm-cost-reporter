@@ -20,7 +20,7 @@ dependency management.
 uv sync
 ```
 
-Requires Python 3.12+.
+Requires Python 3.13+.
 
 ## Configure
 
@@ -42,6 +42,20 @@ uv run llm-cost-reporter
 # or:
 uv run python -m llm_cost_reporter
 ```
+
+## Lint, format, and type check
+
+This project uses [Ruff](https://docs.astral.sh/ruff/) for linting/formatting
+and [mypy](https://mypy.readthedocs.io/) (strict mode) for type checking.
+
+```bash
+uv run ruff check .
+uv run ruff format --check .
+uv run mypy .
+```
+
+Use `uv run ruff format .` (without `--check`) to auto-format, and
+`uv run ruff check --fix .` to auto-fix lint issues.
 
 ## Schedule
 

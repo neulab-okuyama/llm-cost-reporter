@@ -15,7 +15,7 @@ jobs:
         with:
           python-version: "3.13"
 
-      - run: uv sync
+      - run: uv sync --no-dev
 
       - run: uv run llm-cost-reporter
         env:

@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import os
-from typing import Optional
 
 import requests
 
@@ -22,7 +21,7 @@ class SlackNotifier(Notifier):
         self.webhook_url = webhook_url
 
     @classmethod
-    def from_env(cls) -> Optional["SlackNotifier"]:
+    def from_env(cls) -> SlackNotifier | None:
         url = os.getenv("SLACK_WEBHOOK_URL")
         return cls(url) if url else None
 
@@ -61,9 +60,7 @@ class SlackNotifier(Notifier):
         text = self._render(report)
         payload = {
             "text": text,
-            "blocks": [
-                {"type": "section", "text": {"type": "mrkdwn", "text": text}}
-            ],
+            "blocks": [{"type": "section", "text": {"type": "mrkdwn", "text": text}}],
         }
         resp = requests.post(self.webhook_url, json=payload, timeout=HTTP_TIMEOUT)
         resp.raise_for_status()

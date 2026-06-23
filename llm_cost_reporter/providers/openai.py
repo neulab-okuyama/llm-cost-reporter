@@ -7,8 +7,8 @@ invoice. Requires an Admin key (``sk-admin-...``), set via OPENAI_ADMIN_KEY.
 from __future__ import annotations
 
 import os
-from datetime import date, datetime, timezone
-from typing import Dict, Optional
+from datetime import UTC, date, datetime
+from typing import Any
 
 import requests
 
@@ -27,20 +27,20 @@ class OpenAIProvider(CostProvider):
         self.admin_key = admin_key
 
     @classmethod
-    def from_env(cls) -> Optional["OpenAIProvider"]:
+    def from_env(cls) -> OpenAIProvider | None:
         key = os.getenv("OPENAI_ADMIN_KEY")
         return cls(key) if key else None
 
-    def fetch_daily_costs(self, start: datetime, end: datetime) -> Dict[date, float]:
+    def fetch_daily_costs(self, start: datetime, end: datetime) -> dict[date, float]:
         headers = {"Authorization": f"Bearer {self.admin_key}"}
-        params = {
+        params: dict[str, Any] = {
             "start_time": int(start.timestamp()),  # inclusive
-            "end_time": int(end.timestamp()),      # exclusive
+            "end_time": int(end.timestamp()),  # exclusive
             "bucket_width": "1d",
             "limit": 31,
         }
 
-        daily: Dict[date, float] = {}
+        daily: dict[date, float] = {}
         page = None
         while True:
             if page:
@@ -52,9 +52,7 @@ class OpenAIProvider(CostProvider):
             body = resp.json()
 
             for bucket in body.get("data", []):
-                day = datetime.fromtimestamp(
-                    bucket["start_time"], tz=timezone.utc
-                ).date()
+                day = datetime.fromtimestamp(bucket["start_time"], tz=UTC).date()
                 usd = 0.0
                 for result in bucket.get("results", []):
                     amount = result.get("amount") or {}

@@ -7,17 +7,17 @@ imported (see providers/__init__.py and notifiers/__init__.py).
 
 from __future__ import annotations
 
-from typing import Dict, Type
+from typing import Any
 
-PROVIDERS: Dict[str, Type] = {}
-NOTIFIERS: Dict[str, Type] = {}
+PROVIDERS: dict[str, type[Any]] = {}
+NOTIFIERS: dict[str, type[Any]] = {}
 
 
-def register_provider(cls):
+def register_provider(cls: type[Any]) -> type[Any]:
     PROVIDERS[cls.name] = cls
     return cls
 
 
-def register_notifier(cls):
+def register_notifier(cls: type[Any]) -> type[Any]:
     NOTIFIERS[cls.name] = cls
     return cls
