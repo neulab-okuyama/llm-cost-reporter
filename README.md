@@ -20,7 +20,7 @@ dependency management.
 uv sync
 ```
 
-Requires Python 3.9+.
+Requires Python 3.12+.
 
 ## Configure
 
