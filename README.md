@@ -62,7 +62,7 @@ Use `uv run ruff format .` (without `--check`) to auto-format, and
 A ready-made GitHub Actions workflow is in
 `.github/workflows/daily-report.yml`. Put your keys in the repository's
 **Settings → Secrets and variables → Actions**; no `.env` file is needed there.
-It runs at 00:00 UTC (09:00 JST) daily and can also be triggered manually.
+It runs at 00:07 UTC (09:07 JST) daily and can also be triggered manually.
 
 For cron on your own machine:
 
