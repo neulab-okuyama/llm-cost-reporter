@@ -2,7 +2,7 @@ name: Daily cost report
 
 on:
   schedule:
-    - cron: "0 0 * * *"   # 00:00 UTC (09:00 JST)
+    - cron: "7 0 * * *"   # 00:07 UTC (09:07 JST)
   workflow_dispatch: {}
 
 jobs:
